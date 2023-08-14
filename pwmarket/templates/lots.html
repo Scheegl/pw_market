@@ -1,0 +1,37 @@
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+
+{% block title %}
+Lots
+{% endblock title %}
+
+{% block content %}
+  <h1>Все объявления</h1>
+  <hr>
+  {% if lots %}
+      <table>
+           <tr>
+               <td>Название</td>
+               <td>Описание</td>
+               <td>Категория</td>
+               <td>Цена</td>
+               <td>Количество</td>
+           </tr>
+
+           {% for lot in lots %}
+           <tr>
+               <td>{{ lot.title }}</td>
+               <td>{{ lot.description|truncatewords:15 }}</td>
+               <td>{{ lot.category_choice }}</td>
+               <td>{{ lot.price | currency }}</td>
+           </tr>
+           {% endfor %}
+
+       </table>
+  {% else %}
+    <h2>Объявлений нет</h2>
+  {% endif %}
+
+
+
+{% endblock content %}

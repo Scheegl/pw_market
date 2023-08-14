@@ -29,6 +29,7 @@ class Lots(models.Model):
     time_creation = models.DateTimeField(auto_created=True)
     title = models.CharField(max_length=24)
     description = models.TextField()
+    price = models.FloatField(default=0.0)
 
     # screenshot =
 
@@ -45,7 +46,6 @@ class Reply(models.Model):
     reply_user = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField(max_length=256)
     time_creation = models.DateTimeField(auto_now_add=True)
-
 
 
 class News(models.Model):

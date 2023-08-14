@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Стартовый проект SkillFactory</title>
+        <title>PWmarket</title>
 
         {% load static %}
         <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
@@ -16,7 +16,6 @@
         {% endblock header %}
     {% endcache %}
     <body>
-        <!-- Responsive navbar-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
    <div class="container">
        <a class="navbar-brand" href="#">PWmarket</a>
@@ -40,7 +39,7 @@
                </li>
                </li>
                <li class="nav-item">
-                   <a class="nav-link" href="/test/">TestPage</a>
+                   <a class="nav-link" href="/lots/">Объявления</a>
                </li>
                </li>
                <li class="nav-item">
@@ -55,7 +54,6 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     {% block content %}
-                    {{ flatpage.content }}
                     {% endblock content %}
                 </div>
             </div>

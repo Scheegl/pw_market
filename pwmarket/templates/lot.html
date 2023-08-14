@@ -1,0 +1,18 @@
+{% extends 'flatpages/default.html' %}
+{% block title %}
+Lot
+{% endblock title %}
+{% block content %}
+      <tr>
+        <td><h2>{{ lot.title}}</h2></td>
+    </tr>
+    <tr>
+        <td>{{ lot.description|truncatewords:5 }}</td>
+    </tr>
+    <tr>
+        <td>{{ lot.category_choice }}</td>
+    </tr>
+    <tr>
+        <td>{{ lot.price }}</td>
+    </tr>
+{% endblock content %}
