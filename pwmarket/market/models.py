@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.cache import cache
+from django.urls import reverse
 
 
 class SiteUser(models.Model):
@@ -34,7 +35,7 @@ class Lots(models.Model):
     # screenshot =
 
     def get_absolute_url(self):
-        return f'/lots/{self.id}'
+        return reverse('lots_detail', args=[str(self.id)])
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
