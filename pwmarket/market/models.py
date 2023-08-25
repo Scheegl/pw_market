@@ -1,12 +1,16 @@
+import self as self
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.cache import cache
 from django.urls import reverse
+from django.core.mail import send_mail
+
 
 
 class SiteUser(models.Model):
     site_user = models.OneToOneField(User, on_delete=models.CASCADE)
     rating_user = models.IntegerField(default=0)
+    email = models.EmailField(null=True, blank=True, default=None)
 
     def update_rating(self):
         pass
@@ -32,7 +36,6 @@ class Lots(models.Model):
     description = models.TextField()
     price = models.FloatField(default=0.0)
 
-    # screenshot =
 
     def get_absolute_url(self):
         return reverse('lots_detail', args=[str(self.id)])
@@ -44,10 +47,31 @@ class Lots(models.Model):
 
 class Reply(models.Model):
     reply_lots = models.ForeignKey('Lots', on_delete=models.CASCADE)
-    reply_user = models.ForeignKey(User, on_delete=models.CASCADE)
+    reply_user = models.OneToOneField(User, on_delete=models.CASCADE)
     text = models.TextField(max_length=256)
-    time_creation = models.DateTimeField(auto_now_add=True)
+    status = models.BooleanField(default=False)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        if self.status:
+            notify_lot_owner(sender=Reply, instance=self)
+
 
 
 class News(models.Model):
-    pass
+    author = models.ForeignKey('SiteUser', on_delete=models.CASCADE, null=True, blank=True, default=None)
+    title = models.CharField(max_length=256, null=True, blank=True, default=None)
+
+    def __str__(self):
+        return self.title
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        subject = 'Новая новость'
+        message = f'Появилась новая новость: {self.title}'
+        from_email = 'crypto.sch@yandex.ru'
+        recipient_list = SiteUser.objects.values_list('email', flat=True)
+
+        send_mail(subject, message, from_email, recipient_list)

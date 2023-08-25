@@ -1,0 +1,11 @@
+{% load socialaccount %}
+<html>
+<body>
+  <h1>Авторизация</h1>
+  {% if user.is_authenticated %}
+  <p>{{ user.username}} Вы вошли на сайт</p>
+  {% else %}
+  <a href="{% provider_login_url 'yandex' %}">Авторизоваться через Yandex</a>
+  {% endif %}
+</body>
+</html>

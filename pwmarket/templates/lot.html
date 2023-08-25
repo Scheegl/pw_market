@@ -15,4 +15,10 @@ Lot
     <tr>
         <td>{{ lot.price }}</td>
     </tr>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <textarea name="text" rows="4" cols="50"></textarea><br>
+        <button type="submit">Отправить комментарий</button>
+    </form>
 {% endblock content %}

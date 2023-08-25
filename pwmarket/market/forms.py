@@ -1,6 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from .models import Lots
+from .models import Lots, Reply
 
 class LotsForm(forms.ModelForm):
     description = forms.CharField(min_length=20)
@@ -30,3 +30,8 @@ class LotsForm(forms.ModelForm):
             })
 
         return cleaned_data
+
+class ReplyForm(forms.ModelForm):
+    class Meta:
+        model = Reply
+        fields = ['text']
